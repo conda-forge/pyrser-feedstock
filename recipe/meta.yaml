@@ -6,21 +6,21 @@ package:
   version: "{{ version }}"
 
 source:
-  url: https://pypi.io/packages/py2.py3/p/{{ name }}/{{ name }}-{{ version }}-py2.py3-none-any.whl
+  url: https://pypi.org/packages/py2.py3/p/{{ name }}/{{ name }}-{{ version }}-py2.py3-none-any.whl
   sha256: 683d68135ce1c34478c1babe1018e68907fba02c8198cf3cbc43320857fada56
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script:
     - python -m pip install --no-deps --ignore-installed {{ name }}-{{ version }}-py2.py3-none-any.whl
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - cffi
     - pprintpp
     - jinja2
@@ -31,6 +31,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/LionelAuroux/pyrser
